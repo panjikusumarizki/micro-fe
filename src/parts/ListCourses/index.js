@@ -20,7 +20,7 @@ export default function ListCourses({data}) {
       </div>
       <div className="flex justify-start items-center -mx-4 mt-6">
         {
-          data?.length > 0 ? data.map((item, index) => {
+          data?.length > 0 ? data?.filter((_, index) => index < 4).map((item, index) => {
             return <RenderItem item={item} key={index}></RenderItem>
           }) : <div className="w-full text-center py-12">
             No Item Found
