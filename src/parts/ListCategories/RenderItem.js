@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 import formatThousand from 'src/helpers/formatThousand'
 
-export default function RenderItem({ item }) {
+export default function RenderItems({ item }) {
   return (
     <div className="w-1/6 px-4 h-100">
       <div className="card relative transition-all duration-300">

@@ -105,7 +105,7 @@ export default function Footer() {
       </div>
       <div className="border-t pt-8 mt-8 border-gray-800 text-center">
         <p className="text-indigo-600">
-          2021 Copyright &copy; ONCOO by Panji Kusumarizki. All Rights Reserved.
+          2021 Copyright&copy; ONCOO by Panji Kusumarizki. All Rights Reserved.
         </p>
       </div>
     </footer>
