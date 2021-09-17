@@ -18,7 +18,7 @@ export default function HappyStudent({ data }) {
           </h3>
         </div>
       </div>
-      <Star value={data?.rating ?? 0} width={26} height={26}></Star>
+      <Star value={data?.rating ?? 0} width={26} height={26} className="mt-4"></Star>
       <p className="text-gray-600 mt-1">{data?.note ?? "Student's response"}</p>
     </div>
   )
