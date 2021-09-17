@@ -1,8 +1,8 @@
-import React from 'react'
+import React from "react";
 
-import Preview from 'public/images/icon-preview.svg'
+import Preview from "public/images/icon-preview.svg";
 
-import Modal from 'src/components/Modal'
+import Modal from "src/components/Modal";
 
 export default function CoursePhoto({ data }) {
   return (
@@ -17,5 +17,5 @@ export default function CoursePhoto({ data }) {
         </Modal>
       </div>
     </div>
-  )
+  );
 }

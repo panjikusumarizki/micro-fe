@@ -1,53 +1,53 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from "react";
 
-import Head from 'next/head'
-import Link from 'next/link'
-import Youtube from 'react-youtube'
-import Header from 'src/parts/Header'
+import Head from "next/head";
+import Link from "next/link";
+import Youtube from "react-youtube";
+import Header from "src/parts/Header";
 
-import Nametag from 'public/images/icon-nametag.svg'
-import Playback from 'public/images/icon-playback.svg'
-import Certificate from 'public/images/icon-certificate.svg'
+import Nametag from "public/images/icon-nametag.svg";
+import Playback from "public/images/icon-playback.svg";
+import Certificate from "public/images/icon-certificate.svg";
 
-import courses from 'src/constants/api/courses'
-import Feature from 'src/parts/Details/Feature'
-import CoursePhoto from 'src/parts/Details/CoursePhoto'
-import RenderPreview from 'src/parts/Details/RenderPreview'
+import courses from "src/constants/api/courses";
+import Feature from "src/parts/Details/Feature";
+import CoursePhoto from "src/parts/Details/CoursePhoto";
+import RenderPreview from "src/parts/Details/RenderPreview";
+import HappyStudent from 'src/parts/Details/HappyStudent';
 
-import Footer from 'src/parts/Footer'
+import Footer from "src/parts/Footer";
 
-import { CSSTransition } from 'react-transition-group'
-import formatThousand from 'src/helpers/formatThousand'
+import { CSSTransition } from "react-transition-group";
+import formatThousand from "src/helpers/formatThousand";
 
 function DetailsCourse({ data }) {
-  const footer = useRef(null)
+  const footer = useRef(null);
 
-  const [isSticky, setisSticky] = useState(() => true)
+  const [isSticky, setisSticky] = useState(() => true);
 
   useEffect(() => {
-    const stickyOffsetTop = footer.current.getBoundingClientRect().top
+    const stickyOffsetTop = footer.current.getBoundingClientRect().top;
 
     const stickyMetaToggler = () => {
-      setisSticky( stickyOffsetTop >= window.pageYOffset + window.innerHeight )
-    }
+      setisSticky(stickyOffsetTop >= window.pageYOffset + window.innerHeight);
+    };
 
-    window.addEventListener("scroll", stickyMetaToggler)
+    window.addEventListener("scroll", stickyMetaToggler);
     return () => {
-      window.removeEventListener("scroll", stickyMetaToggler)
-    }
-  }, [])
+      window.removeEventListener("scroll", stickyMetaToggler);
+    };
+  }, []);
 
   return (
     <>
       <Head>
         <title>ONCOO | Online Course</title>
       </Head>
-      <section 
-        className="pt-10 relative overflow-hidden" 
+      <section
+        className="pt-10 relative overflow-hidden"
         style={{ height: 660 }}
       >
-        {
-          data?.chapters?.[0]?.lessons?.[0]?.video && (
+        {data?.chapters?.[0]?.lessons?.[0]?.video && (
           <div className="video-wrapper">
             <Youtube
               videoId={data?.chapters?.[0]?.lessons?.[0]?.video}
@@ -58,11 +58,11 @@ function DetailsCourse({ data }) {
                   mute: 1,
                   autoplay: 1,
                   controls: 0,
-                  showinfo: 0
-                }
+                  showinfo: 0,
+                },
               }}
               onEnd={(event) => {
-                event.target.playVideo()
+                event.target.playVideo();
               }}
             ></Youtube>
           </div>
@@ -86,38 +86,46 @@ function DetailsCourse({ data }) {
         <div className="absolute top-0 w-full transform -translate-y-1/2">
           <div className="w-3/4 mx-auto">
             <div className="flex justify-between">
-              <Feature 
+              <Feature
                 data={{
                   icon: <Nametag className="fill-teal-500" />,
                   meta: "Student",
                   value: data?.total_student ?? 0,
                 }}
               />
-              <Feature 
+              <Feature
                 data={{
                   icon: <Playback className="fill-teal-500" />,
                   meta: "Video",
                   value: data?.total_videos ?? 0,
                 }}
               />
-              <Feature 
+              <Feature
                 data={{
                   icon: <Certificate className="fill-teal-500" />,
                   meta: "Certificate",
-                  value: data?.certificate === 1 ? "Tersedia" : "Tidak Tersedia"
+                  value:
+                    data?.certificate === 1 ? "Tersedia" : "Tidak Tersedia",
                 }}
               />
             </div>
           </div>
         </div>
         <div>
-          <CSSTransition in={isSticky} timeout={300} classNames="meta-price" unmountOnExit>
+          <CSSTransition
+            in={isSticky}
+            timeout={300}
+            classNames="meta-price"
+            unmountOnExit
+          >
             <div className="meta-price w-full bg-white z-50 left-0 py-3">
               <div className="w-3/4 mx-auto">
                 <div className="flex items-center">
                   <div className="w-full">
                     <h2 className="text-gray-600">Nama Kelas</h2>
-                    <h3 className="text-2xl text-gray-900">{data?.name ?? "Nama Kelas"}</h3>
+                    <h3 className="text-2xl text-gray-900">
+                      {data?.name ?? "Nama Kelas"}
+                    </h3>
                   </div>
                   <h5 className="text-2xl text-teal-500 whitespace-nowrap mr-4">
                     {data?.type === "free" ? (
@@ -126,7 +134,7 @@ function DetailsCourse({ data }) {
                       <span>Rp {formatThousand(data?.price ?? 0)}</span>
                     )}
                   </h5>
-                  <a 
+                  <a
                     href={`${process.env.NEXT_PUBLIC_MEMBERPAGE_URL}/joined/${data.id}`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -170,33 +178,61 @@ function DetailsCourse({ data }) {
               <h6 className="font-medium text-gray-900 text-2xl mb-4">
                 You Will <span className="text-teal-500">Learn</span>
               </h6>
+              {data?.chapters?.length > 0 ? (
+                <RenderPreview previews={data.chapters}></RenderPreview>
+              ) : (
+                <div className="w-full text-center py-12">No Chapter Found</div>
+              )}
+            </section>
+
+            <section className="mt-10 w-2/3">
+              <h6 className="font-medium text-gray-900 text-2xl mb-4">
+                Our <span className="text-teal-500">Instructor</span>
+              </h6>
+              <div className="flex items-center">
+                <img
+                  src={data?.mentor?.profile ?? ""}
+                  alt={data?.mentor?.name}
+                  className="w-20 h-20 rounded-full overflow-hidden object-cover"
+                />
+                <div className="ml-4">
+                  <h2 className="text-lg text-gray-900">
+                    {data?.mentor?.name ?? "Mentor's name"}
+                  </h2>
+                  <h3 className="text-sm text-gray-60">
+                    {data?.mentor?.profession}
+                  </h3>
+                </div>
+              </div>
+            </section>
+
+            <section className="mt-10 w-6/12">
+              <h6 className="font-medium text-gray-900 text-2xl mb-4">
+                Happy <span className="text-teal-500">Students</span>
+              </h6>
               {
-                data?.chapters?.length > 0 ? (
-                  <RenderPreview previews={data.chapters}></RenderPreview>
-                ) : (
-                  <div className="w-full text-center py-12">No Chapter Found</div>
-                )
+                data.reviews?.map?.((testimonial, index) => {
+                  return <HappyStudent key={index} data={testimonial}></HappyStudent>
+                })
               }
             </section>
           </div>
         </div>
       </section>
-
-      <div style={{height: 2000}}></div>
+      
       <section className="mt-24 bg-indigo-1000 py-12" ref={footer}>
         <Footer></Footer>
       </section>
     </>
-  )
+  );
 }
 
 DetailsCourse.getInitialProps = async (props) => {
-  const { id } = props.query
+  const { id } = props.query;
   try {
-    const data = await courses.details(id)
-    return { data }
-  } catch (error) {
-  }
-}
+    const data = await courses.details(id);
+    return { data };
+  } catch (error) {}
+};
 
-export default DetailsCourse
+export default DetailsCourse;
