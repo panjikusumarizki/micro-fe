@@ -11,7 +11,11 @@ import ListCourses from "src/parts/ListCourses";
 function Courses({ data }) {
   const [Search, setSearch] = useState(() => "");
   const [SearchFocus, setSearchFocus] = useState(() => false);
-  const [SearchResponse, setSearchResponse] = useState(() => ({ isLoading: false, isError: false, data: []}))
+  const [SearchResponse, setSearchResponse] = useState(() => ({
+    isLoading: false,
+    isError: false,
+    data: [],
+  }));
 
   const selectWrapper = useRef(null);
 
@@ -21,17 +25,34 @@ function Courses({ data }) {
     }
   }
 
-  let timeoutSearch = useRef(null)
+  let timeoutSearch = useRef(null);
   function handleSearch(event) {
-    event.persist()
-    setSearch(event.target.value)
-    clearTimeout(timeoutSearch.current)
+    event.persist();
+    setSearch(event.target.value);
+    clearTimeout(timeoutSearch.current);
     timeoutSearch.current = setTimeout(() => {
       setSearchResponse({
-        isLoading: true, isError: false, data: null
-      })
-      courses.all()
-    }, 1000)
+        isLoading: true,
+        isError: false,
+        data: null,
+      });
+      courses
+        .all({ params: { q: event.target.value } })
+        .then((res) => {
+          setSearchResponse({
+            isLoading: false,
+            isError: false,
+            data: res.data,
+          });
+        })
+        .catch((err) => {
+          setSearchResponse({
+            isLoading: false,
+            isError: true,
+            data: null,
+          });
+        });
+    }, 1000);
   }
 
   useEffect(() => {
@@ -82,37 +103,65 @@ function Courses({ data }) {
                   className="flex flex-col absolute py-2 px-4 bg-white border border-gray-600 w-full"
                   style={{ top: 75 }}
                 >
-                  {data?.map((item, index) => {
-                    return (
-                      <div
-                        key={index}
-                        className="flex items-center -mx-4 py-2 cursor-pointer hover:bg-gray-200 relative"
-                      >
-                        <div className="w-auto px-4" style={{ width: 150 }}>
-                          <img
-                            src={item?.thumbnail ?? ""}
-                            alt={item?.name ?? "Course Name"}
-                          />
-                        </div>
-                        <div className="w-full px-4">
-                          <h6 className="text-gray-900 text-lg">
-                            {item?.name ?? "Course Name"}
-                          </h6>
-                          <p className="text-gray-600">
-                            {item?.level ?? "level"}
-                          </p>
-                          <Link href="/courses/[id]" as={`/courses/${item.id}`}>
-                            <a className="link-wrapped"></a>
-                          </Link>
-                        </div>
-                      </div>
-                    );
-                  })}
+                  {SearchResponse.isLoading ? (
+                    "Loading..."
+                  ) : (
+                    <>
+                      {SearchResponse.isError &&
+                        "Something is technically wrong"}
+                      {SearchResponse.data?.length > 0
+                        ? SearchResponse.data?.map?.((item, index) => {
+                            return (
+                              <div
+                                key={index}
+                                className="flex items-center -mx-4 py-2 cursor-pointer hover:bg-gray-200 relative"
+                              >
+                                <div
+                                  className="w-auto px-4"
+                                  style={{ width: 150 }}
+                                >
+                                  <img
+                                    src={item?.thumbnail ?? ""}
+                                    alt={item?.name ?? "Course Name"}
+                                  />
+                                </div>
+                                <div className="w-full px-4">
+                                  <h6 className="text-gray-900 text-lg">
+                                    {item?.name ?? "Course Name"}
+                                  </h6>
+                                  <p className="text-gray-600">
+                                    {item?.level ?? "level"}
+                                  </p>
+                                  <Link
+                                    href="/courses/[id]"
+                                    as={`/courses/${item.id}`}
+                                  >
+                                    <a className="link-wrapped"></a>
+                                  </Link>
+                                </div>
+                              </div>
+                            );
+                          })
+                        : "No course found"}
+                    </>
+                  )}
                 </div>
               )}
             </div>
           </div>
         </div>
+
+        <div className="container mx-auto z-10 relative">
+          <Header></Header>
+        </div>
+      </section>
+
+      <section className="container mx-auto pt-24">
+        <ListCourses data={data}></ListCourses>
+      </section>
+
+      <section className="mt-24 bg-indigo-1000 py-12">
+        <Footer></Footer>
       </section>
     </>
   );
