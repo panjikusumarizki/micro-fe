@@ -8,6 +8,8 @@ import Link from "next/link";
 
 import Logo from "public/images/logo.svg";
 
+import DefaultAvatar from 'public/images/default-avatar.svg'
+
 export default function Header({ onLight }) {
   const [User, setUser] = useState(() => null);
   useEffect(() => {
