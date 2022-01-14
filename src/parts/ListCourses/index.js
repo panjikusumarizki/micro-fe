@@ -18,7 +18,7 @@ export default function ListCourses({data}) {
           <Link href="/courses"><a className="text-gray-600 hover:underline text-sm">View All Courses</a></Link>
         </div>
       </div>
-      <div className="flex justify-start items-center -mx-4 mt-6">
+      <div className="flex flex-wrap justify-start items-center -mx-4 mt-6">
         {
           data?.length > 0 ? data?.filter((_, index) => index < 4).map((item, index) => {
             return <RenderItem item={item} key={index}></RenderItem>

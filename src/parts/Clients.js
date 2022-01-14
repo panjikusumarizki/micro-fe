@@ -2,8 +2,8 @@ import React from 'react'
 
 export default function Clients() {
   return (
-    <div className="flex justify-center items-center">
-      <div className="w-1/6">
+    <div className="flex flex-wrap justify-center items-center">
+      <div className="w-full sm:w-1/6 mb-8 md:mb-0">
         <img 
           src="/images/logo-amazon.svg" 
           alt="logo amazon" 
@@ -11,7 +11,7 @@ export default function Clients() {
         />
       </div>
 
-      <div className="w-1/6">
+      <div className="w-full sm:w-1/6 mb-8 md:mb-0">
         <img 
           src="/images/logo-microsoft.svg" 
           alt="logo microsoft" 
@@ -19,7 +19,7 @@ export default function Clients() {
         />
       </div>
 
-      <div className="w-1/6">
+      <div className="w-full sm:w-1/6 mb-8 md:mb-0">
         <img 
           src="/images/logo-tesla.svg" 
           alt="logo tesla" 
@@ -27,7 +27,7 @@ export default function Clients() {
         />
       </div>
 
-      <div className="w-1/6">
+      <div className="w-full sm:w-1/6 mb-8 md:mb-0">
         <img 
           src="/images/logo-google.svg" 
           alt="logo google" 
@@ -35,7 +35,7 @@ export default function Clients() {
         />
       </div>
 
-      <div className="w-1/6">
+      <div className="w-full sm:w-1/6 mb-8 md:mb-0">
         <img 
           src="/images/logo-facebook.svg" 
           alt="logo facebook" 
