@@ -44,11 +44,11 @@ function DetailsCourse({ data }) {
         <title>ONCOO | Online Course</title>
       </Head>
       <section
-        className="pt-10 relative overflow-hidden"
+        className="px-4 pt-10 relative overflow-hidden"
         style={{ height: 660 }}
       >
         {data?.chapters?.[0]?.lessons?.[0]?.video && (
-          <div className="video-wrapper">
+          <div className="video-wrapper min-h-screen md:min-h-full">
             <Youtube
               videoId={data?.chapters?.[0]?.lessons?.[0]?.video}
               id={data?.chapters?.[0]?.lessons?.[0]?.video}
@@ -72,20 +72,20 @@ function DetailsCourse({ data }) {
         <div className="meta-title absolute inset-0 object-fill z-0 w-full flex justify-center items-center">
           <div className="text-center">
             <h3 className="text-lg text-white">Kelas Online: </h3>
-            <h4 className="text-6xl text-teal-500 font-semibold">
+            <h4 className="text-3xl md:text-6xl text-teal-500 font-semibold">
               {data?.name ?? "Nama Kelas"}
             </h4>
           </div>
         </div>
-        <div className="container mx-auto z-10 relative">
+        <div className="container mx-auto z-20 relative">
           <Header></Header>
         </div>
       </section>
 
       <section className="container mx-auto pt-24 relative">
-        <div className="absolute top-0 w-full transform -translate-y-1/2">
+        <div className="md:absolute top-0 w-full transform md:-translate-y-1/2">
           <div className="w-3/4 mx-auto">
-            <div className="flex justify-between">
+            <div className="flex flex-wrap justify-between">
               <Feature
                 data={{
                   icon: <Nametag className="fill-teal-500" />,
@@ -118,16 +118,16 @@ function DetailsCourse({ data }) {
             classNames="meta-price"
             unmountOnExit
           >
-            <div className="meta-price w-full bg-white z-50 left-0 py-3">
-              <div className="w-3/4 mx-auto">
+            <div className="meta-price w-full bg-white z-50 left-0 md:py-3">
+              <div className="w-full md:w-3/4 md:mx-auto">
                 <div className="flex items-center">
-                  <div className="w-full">
-                    <h2 className="text-gray-600">Nama Kelas</h2>
-                    <h3 className="text-2xl text-gray-900">
+                  <div className="w-full ml-2 md:mx-auto">
+                    <h2 className="text-gray-600 text-xs md:text-base">Nama Kelas</h2>
+                    <h3 className="text-base md:text-2xl text-gray-900">
                       {data?.name ?? "Nama Kelas"}
                     </h3>
                   </div>
-                  <h5 className="text-2xl text-teal-500 whitespace-nowrap mr-4">
+                  <h5 className="text-base md:text-2xl text-teal-500 whitespace-nowrap mr-4">
                     {data?.type === "free" ? (
                       "Free"
                     ) : (
@@ -149,12 +149,12 @@ function DetailsCourse({ data }) {
         </div>
 
         <div className="w-3/4 mx-auto mt-8">
-          <div className="w-3/4">
+          <div className="w-full md:w-3/4">
             <section>
               <h6 className="font-medium text-gray-900 text-2xl mb-4">
                 About <span className="text-teal-500">Course</span>
               </h6>
-              <p className="text-gray-600 text-lg leading-relaxed mb-3">
+              <p className="text-gray-600 text-base md:text-lg leading-relaxed mb-3">
                 {data?.description ?? "No Description Found"}
               </p>
             </section>
@@ -163,7 +163,7 @@ function DetailsCourse({ data }) {
               <h6 className="font-medium text-gray-900 text-2xl mb-4">
                 Course <span className="text-teal-500">Photos</span>
               </h6>
-              <div className="flex justify-start items-center -mx-4 mt-6">
+              <div className="flex flex-wrap justify-start items-center -mx-4 mt-6">
                 {data?.images?.length > 0 ? (
                   data?.images?.map?.((photo, index) => (
                     <CoursePhoto data={photo.image} key={index} />
@@ -185,7 +185,7 @@ function DetailsCourse({ data }) {
               )}
             </section>
 
-            <section className="mt-10 w-2/3">
+            <section className="mt-10 w-full md:w-2/3">
               <h6 className="font-medium text-gray-900 text-2xl mb-4">
                 Our <span className="text-teal-500">Instructor</span>
               </h6>
@@ -206,7 +206,7 @@ function DetailsCourse({ data }) {
               </div>
             </section>
 
-            <section className="mt-10 w-8/12">
+            <section className="mt-10 w-full md:w-8/12">
               <h6 className="font-medium text-gray-900 text-2xl mb-4">
                 Happy <span className="text-teal-500">Students</span>
               </h6>

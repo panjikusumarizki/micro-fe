@@ -5,7 +5,7 @@ import formatThousand from 'src/helpers/formatThousand'
 export default function Feature({ data }) {
   return (
     <div 
-      className="border border-gray-300 bg-white p-6" 
+      className="border border-gray-300 bg-white p-6 w-full md:w-1/3" 
       style={{ width: 290 }}
     >
       <div className="flex">
